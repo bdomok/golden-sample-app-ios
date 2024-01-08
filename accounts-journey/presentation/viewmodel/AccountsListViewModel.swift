@@ -9,6 +9,7 @@ import Foundation
 import Resolver
 import Combine
 import BackbaseDesignSystem
+import BackbaseObservability
 
 final class AccountsListViewModel: NSObject {
     
@@ -17,7 +18,10 @@ final class AccountsListViewModel: NSObject {
     @Published private(set) var screenState: AccountListScreenState = .loading
     
     var didSelectProduct: ((String) -> Void)?
-    
+
+    @OptionalInjected
+    var tracker: Tracker?
+
     // MARK: - Private
     
     private lazy var accountsListUseCase: AccountsListUseCase = {
@@ -26,20 +30,22 @@ final class AccountsListViewModel: NSObject {
         }
         return useCase
     }()
-    
+
     // MARK: - Methods
     func onEvent(_ event: AccountListScreenEvent) {
         switch event {
         case .getAccounts:
             getAccountSummary(fromEvent: .getAccounts)
         case .refresh:
-            getAccountSummary(fromEvent: .refresh)
+            refresh()
         case .search(let searchString):
-            getAccountSummary(fromEvent: .search(searchString))
+            search(for: searchString)
+        case .didAppear:
+            viewDidAppear()
         }
     }
     
-    func getAccountSummary(fromEvent event: AccountListScreenEvent) {
+    private func getAccountSummary(fromEvent event: AccountListScreenEvent) {
         var query = ""
         
         if case let .search(searchString) = event {
@@ -81,5 +87,19 @@ final class AccountsListViewModel: NSObject {
                 )
             }
         }
+    }
+
+    private func viewDidAppear() {
+        tracker?.publish(event: ScreenViewEvent.accounts)
+    }
+
+    private func refresh() {
+        getAccountSummary(fromEvent: .refresh)
+        tracker?.publish(event: UserActionEvent.refresh)
+    }
+
+    private func search(for text: String) {
+        getAccountSummary(fromEvent: .search(text))
+        tracker?.publish(event: UserActionEvent.searchAccounts)
     }
 }

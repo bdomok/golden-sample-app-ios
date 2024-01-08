@@ -15,6 +15,8 @@ public enum AccountListScreenEvent {
     case refresh
     /// Search for an account
     case search(String)
+    /// Used to track screen view events
+    case didAppear
 }
 
 extension AccountListScreenEvent: Equatable {}

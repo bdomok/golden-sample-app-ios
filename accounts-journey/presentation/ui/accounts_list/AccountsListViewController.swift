@@ -62,6 +62,7 @@ final class AccountsListViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        viewModel.onEvent(.didAppear)
         viewModel.onEvent(.getAccounts)
     }
     

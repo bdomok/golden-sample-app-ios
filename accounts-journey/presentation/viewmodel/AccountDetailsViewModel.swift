@@ -8,12 +8,16 @@
 import Foundation
 import Resolver
 import BackbaseDesignSystem
+import BackbaseObservability
 
 final class AccountDetailsViewModel: NSObject {
     
     // MARK: - Properties
     @Published private(set) var screenState: AccountDetailsScreenState = .loading
-    
+
+    @OptionalInjected
+    var tracker: Tracker?
+
     // MARK: - Private
     private lazy var accountDetailsUseCase: AccountDetailsUseCase = {
         guard let useCase = Resolver.optional(AccountDetailsUseCase.self) else {
@@ -27,9 +31,15 @@ final class AccountDetailsViewModel: NSObject {
         switch event {
         case let .getAccountDetails(id):
             getAccountDetail(id: id)
+        case .didAppear:
+            viewDidAppear()
         }
     }
-    
+
+    private func viewDidAppear() {
+        tracker?.publish(event: ScreenViewEvent.accountDetails)
+    }
+
     func getAccountDetail(id: String) {
         screenState = .loading
         
@@ -52,6 +62,7 @@ final class AccountDetailsViewModel: NSObject {
 
 public enum AccountDetailsEvent {
     case getAccountDetails(String)
+    case didAppear
 }
 
 /// Enum representing the possible states of the AccountDetails screen

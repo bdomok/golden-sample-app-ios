@@ -71,6 +71,7 @@ final class AccountDetailsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.onEvent(.getAccountDetails(arrangementId))
+        viewModel.onEvent(.didAppear)
     }
     
     private func setupView() {
