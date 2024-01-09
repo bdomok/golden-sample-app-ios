@@ -14,7 +14,7 @@ class TelemetryManager: NSObject {
 
     func setupTelemetry() {
         configureSDK()
-        startSpan()
+        subscribeToEvents()
     }
 
     private func configureSDK() {
@@ -36,7 +36,7 @@ class TelemetryManager: NSObject {
         }))
     }
 
-    private func startSpan() {
+    private func subscribeToEvents() {
         let  tracer = OpenTelemetry.instance.tracerProvider.get(instrumentationName: "@backbase/observability",
                                                                 instrumentationVersion: "1.0.0")
         tracker?.subscribe(subscriber: self, eventClass: ScreenViewEvent.self) {
