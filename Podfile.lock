@@ -88,8 +88,7 @@ PODS:
 
 DEPENDENCIES:
   - ArrangementsClient2Gen2 (~> 1.2.1)
-  - Backbase (>= 9.0)
-  - BackbaseObservability (~> 1.0)
+  - Backbase (>= 10.0)
   - BusinessWorkspacesJourney
   - BusinessWorkspacesJourneyWorkspacesUseCase2
   - IdentityAuthenticationJourney
@@ -154,6 +153,6 @@ SPEC CHECKSUMS:
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SwiftLint: 5ce4d6a8ff83f1b5fd5ad5dbf30965d35af65e44
 
-PODFILE CHECKSUM: e005310a7f5eb1301a1cc3a10ee7bd4e241ab6c2
+PODFILE CHECKSUM: bbf64b9052c3d48518b0863ad398b8c06037b8d1
 
-COCOAPODS: 1.13.0
+COCOAPODS: 1.14.3

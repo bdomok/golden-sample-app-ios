@@ -67,6 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupAccountsJourney()
         setupObservability()
         telemetryManager.setupTelemetry()
+        appendCustomHeader()
         return true
     }
 }
