@@ -13,7 +13,7 @@ vendor/
 .DS_Store
 
 ## Ignore project files as we generate them with xcodegen (https://github.com/yonaskolb/XcodeGen)
-*.xcworkspace
+.xcworkspace
 .xcodeproj
 
 ## Various settings
